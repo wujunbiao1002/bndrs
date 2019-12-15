@@ -1,0 +1,8 @@
+配置自动启动脚本
+
+1.在/etc/rc.d/rc.local文件下添加脚本
+	/root/bndrs/mycat1.6.6.1/bin/mycat start
+	/root/bndrs/zookeeper-3.4.13/bin/zkServer.sh start
+	/root/bndrs/mycat-web/sh start.sh
+	/root/bndrs/apache-tomcat-8.5.32/bin/startup.sh 
+2.配置可执行文件：chmod +x  /etc/rc.d/rc.local

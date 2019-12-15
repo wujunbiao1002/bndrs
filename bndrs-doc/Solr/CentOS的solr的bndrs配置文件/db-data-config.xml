@@ -1,0 +1,18 @@
+<dataConfig>
+    <dataSource driver="com.mysql.jdbc.Driver" url="jdbc:mysql://192.168.141.128:3306/bndrs" user="root" password="wujunbiao" batchSize="-1"/>
+    <document>
+        <entity name="netdisk_resource" query="select * from netdisk_resource">
+             <field column="id" name="id" />
+             <field column="title" name="title" />
+             <field column="url" name="url" />
+             <field column="type" name="type" />
+             <field column="size" name="size" />
+             <field column="share_date" name="share_date" />
+             <field column="share_id" name="share_id" />
+             <field column="share_name" name="share_name" />
+             <field column="download_number" name="download_number" />
+             <field column="status" name="status" />
+             <field column="password" name="password" />
+         </entity>
+    </document>
+</dataConfig>

@@ -1,0 +1,105 @@
+﻿参考资料：https://www.jianshu.com/p/4e86df9532d9
+https://blog.csdn.net/qq_18252605/article/details/80336429
+
+1.solr 下载地址http://archive.apache.org/dist/lucene/solr/
+2.下载.zip版本，并在Windows下进行解压
+3.使用solr.cmd create -c core名字 创建core
+4.在bin目录下使用solr start 进行启动
+
+
+配置ik分词
+1.Solr\solr-7.7.0\server\solr-webapp\webapp\WEB-INF\lib导入ik jar包
+2.Solr\solr-7.7.0\server\solr-webapp\webapp\WEB-INF\classes下创建名称为
+1）stopword.dic
+2）IKAnalyzer.cfg.xml
+	<?xml version="1.0" encoding="UTF-8"?>
+	<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">  
+	<properties>  
+		<comment>IK Analyzer 扩展配置</comment>
+		<!--用户可以在这里配置自己的扩展字典 -->
+		<entry key="ext_dict">ext.dic;</entry> 
+		
+		<!--用户可以在这里配置自己的扩展停止词字典-->
+		<entry key="ext_stopwords">stopword.dic;</entry> 
+		
+	</properties>
+3.）ext.dic
+
+----------
+未知使用
+
+4）ik.conf
+	ik.conf文件说明：
+
+	files=dynamicdic.txt
+	lastupdate=0
+	files为动态词典列表，可以设置多个词典表，用逗号进行分隔，默认动态词典表为dynamicdic.txt；
+	lastupdate默认值为0，每次对动态词典表修改后请+1，不然不会将词典表中新的词语添加到内存中。lastupdate采用的是int类型，不支持时间戳，如果使用时间戳的朋友可以把源码中的int改成long即可； 2018-08-23 已将源码中lastUpdate改为long类型，现可以用时间戳了。
+5）dynamicdic.txt
+	dynamicdic.txt 为动态词典
+	在此文件配置的词语不需重启服务即可加载进内存中。 以#开头的词语视为注释，将不会加载到内存中。
+----------
+
+4.修改core的managed-schema
+	<!-- ik分词器 -->
+	<fieldType name="text_ik" class="solr.TextField">
+	  <analyzer type="index">
+		  <tokenizer class="org.wltea.analyzer.lucene.IKTokenizerFactory" useSmart="false" conf="ik.conf"/>
+		  <filter class="solr.LowerCaseFilterFactory"/>
+	  </analyzer>
+	  <analyzer type="query">
+		  <tokenizer class="org.wltea.analyzer.lucene.IKTokenizerFactory" useSmart="true" conf="ik.conf"/>
+		  <filter class="solr.LowerCaseFilterFactory"/>
+	  </analyzer>
+	</fieldType>
+5.重启分词测试
+
+
+6.添加mysql索引
+	\solr-7.7.0-centos\dist的下面两个包复制到Solr\solr-7.7.0\server\solr-webapp\webapp\WEB-INF\lib
+	solr-dataimporthandler-7.7.0.jar
+	solr-dataimporthandler-extras-7.7.0.jar
+	自备
+	mysql-connector-java-5.1.29
+
+7.复制solr-7.7.0-centos\example\example-DIH\solr\db下的所有文件到新的core覆盖原有的文件
+
+8.配置db-data-config.xml
+
+<dataConfig>
+    <dataSource driver="com.mysql.jdbc.Driver" url="jdbc:mysql://192.168.141.128:3306/bndrs" user="root" password="wujunbiao" batchSize="-1"/>
+    <document>
+        <entity name="netdisk_resource" query="select * from netdisk_resource">
+             <field column="id" name="id" />
+             <field column="title" name="title" />
+             <field column="url" name="url" />
+             <field column="type" name="type" />
+             <field column="size" name="size" />
+             <field column="share_date" name="share_date" />
+             <field column="share_id" name="share_id" />
+             <field column="share_name" name="share_name" />
+             <field column="download_number" name="download_number" />
+             <field column="status" name="status" />
+             <field column="password" name="password" />
+         </entity>
+    </document>
+</dataConfig>
+9.配置managed-schema
+	配置nane === 上面的name type：分词方式
+	<field name="title" type="bndrs_ik" indexed="true" stored="true"/>
+	<field name="url" type="text_general" indexed="true" stored="true"/>
+	<field name="type" type="bndrs_ik" indexed="true" stored="true"/>
+	<field name="size" type="text_general" indexed="true" stored="true"/>
+	<field name="share_date" type="text_general" indexed="true" stored="true"/>
+	<field name="share_id" type="text_general" indexed="true" stored="true"/>
+	<field name="share_name" type="text_general" indexed="true" stored="true"/>
+	<field name="download_number" type="text_general" indexed="true" stored="true"/>
+    	<field name="status" type="text_general" indexed="true" stored="true"/>
+   	<field name="password" type="text_general" indexed="true" stored="true"/>
+
+	<field name="keywords" type="bndrs_ik" indexed="true" stored="false" multiValued="true"/>
+	
+	<copyField source="title" dest="keywords"/>
+	<copyField source="type" dest="keywords"/>
+
+

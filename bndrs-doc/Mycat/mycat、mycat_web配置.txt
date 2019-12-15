@@ -1,0 +1,28 @@
+安装mycat1.6、mycat web1.0和Zookeeper最新
+
+1.下载地址：http://www.mycat.io/下载mycat和mycat web 	
+	解压tar -zxvf 
+	配置conf文件 server schema rule logfj2
+	启动/mycat/bin下./mycat start / stop /status
+
+2.mycat web1.0
+	解压tar -zxvf 
+	mycat-web目录下./start.sh
+	终止了查看nohup.out文件错误
+	
+3.Zookeeper
+	解压tar -zxvf 
+	配置conf文件修改zoo_sample.cfg改为zoo.cfg
+		可以添加：
+		dataDir=/root/bndrs/logs/zookeeper/data
+		dataLogDir=/root/bndrs/logs/zookeeper/log	
+	启动/zookeeper-3.4.13/bin下zkServer.sh start
+
+注释：
+	mycat1.6、mycat web1.0搭配才能正常使用
+	mycat1.6运行容易出现空指针异常
+	
+	查看端口情况
+	netstat -ant | grep 2181
+	查看端口被什么进程占用
+	netstat -tunlp | grep 端口号

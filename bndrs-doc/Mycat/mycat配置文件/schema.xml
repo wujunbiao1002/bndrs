@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE mycat:schema SYSTEM "schema.dtd">
+<mycat:schema xmlns:mycat="http://io.mycat/">
+
+	<schema name="bndrs" checkSQLschema="false" sqlMaxLimit="100">
+		<table name="fastsoso_shareuser_url" dataNode="dn1" />
+		<table name="fastsoso_url" dataNode="dn1" />
+		<table name="hot_keywords" dataNode="dn1" />
+		<table name="proxys" dataNode="dn1" />
+		<table name="netdisk_resource" dataNode="dn1" />
+	</schema>
+
+	<dataNode name="dn1" dataHost="host1" database="bndrs" />
+
+	<dataHost name="host1" maxCon="1000" minCon="10" balance="1"
+			  writeType="0" dbType="mysql" dbDriver="native" switchType="1"  slaveThreshold="100">
+		<heartbeat>select user()</heartbeat>
+
+		<writeHost host="hostM1" url="192.168.141.128:3306" user="root"
+				   password="wujunbiao">
+			<readHost host="hostS1" url="192.168.141.130:3306" user="root" password="wujunbiao" />
+		</writeHost>
+		<writeHost host="hostM2" url="192.168.141.129:3306" user="root"
+				   password="wujunbiao" >
+			<readHost host="hostS2" url="192.168.141.131:3306" user="root" password="wujunbiao" />
+		</writeHost>
+	</dataHost>
+
+</mycat:schema>

@@ -1,0 +1,28 @@
+Windows的Nginx相应的命令：
+start nginx.exe 命令了。
+nginx.exe -s stop            //停止nginx
+nginx.exe -s reload        //重新加载nginx
+nginx.exe -s quit         //退出nginx
+
+
+nginx.conf配置
+
+	upstream bndrs.com{
+		server 192.168.141.128:8080 weight=1;
+		server 192.168.141.129:8080 weight=1;
+		server 192.168.141.130:8080 weight=1;
+		server 192.168.141.131:8080 weight=1;
+		server 192.168.141.132:8080 weight=1;
+	}
+
+
+	# 静态资源地址Nginx下的html目录
+	location ~ .*.(html|htm|gif|jpg|jpeg|png|bmp|swf|css|js)$ {
+		root   html;
+		index  index.html index.htm;
+	}
+	
+	# 拦截所有.do都转发给tomcat处理  
+	location ~\.(do)?$ {
+		proxy_pass http://bndrs.com;
+	}

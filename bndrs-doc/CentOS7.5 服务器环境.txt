@@ -1,0 +1,17 @@
+﻿1.IP地址使用dhcp方式获取
+	CentOS 7-1 IP地址：192.168.141.128 1G
+	CentOS 7-2 IP地址：192.168.141.129 1G
+	CentOS 7-3 IP地址：192.168.141.130 1G
+	CentOS 7-4 IP地址：192.168.141.131 1G
+	CentOS 7-5 IP地址：192.168.141.132 4G
+	CentOS 7-6 IP地址：192.168.141.133 3G
+	用户名统一为:root 密码为:wujunbiao
+
+通有环境：
+1.安装MySQL 5.7.24版本
+2.安装JDK 1.8.0_191
+3.安装Tomcat 8.5.35
+
+
+CentOS 7-5：Solr7.7.0、Mycat1.6.6.1、Mycat1.6、 Zookeeper3.4.13、MycatWeb1.0
+CentOS 7-6：Jmeter5.1.1

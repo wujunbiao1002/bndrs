@@ -1,0 +1,12 @@
+Jmeter测试并生成报告
+
+1.先使用图形界面配置好.jmx测试内容。
+
+2.使用命令进行测试和生成报告
+Linux命令
+sh /root/bndrs/apache-jmeter-5.1.1/bin/jmeter.sh -n -t /root/bndrs/jmeter_bndrs/门户网站测试.jmx -l /root/bndrs/jmeter_bndrs/bndrs_website_log.jtl -e -o /root/bndrs/jmeter_bndrs/bndrs_website
+sh /root/bndrs/apache-jmeter-5.1.1/bin/jmeter.sh -n -t /root/bndrs/jmeter_bndrs/搜索功能测试.jmx -l /root/bndrs/jmeter_bndrs/bndrs_search_log.jtl -e -o /root/bndrs/jmeter_bndrs/bndrs_search
+
+Windows命令
+jmeter -n -t F:\WorkSpace\TestTools\apache-jmeter-5.1.1\bin\bndrs\门户网站测试.jmx -l F:\jmeter_bndrs\bndrs_website_log.jtl -e -o F:\jmeter_bndrs\bndrs_website
+jmeter -n -t F:\WorkSpace\TestTools\apache-jmeter-5.1.1\bin\bndrs\搜索功能测试.jmx -l F:\jmeter_bndrs\bndrs_search_log.jtl -e -o F:\jmeter_bndrs\bndrs_search

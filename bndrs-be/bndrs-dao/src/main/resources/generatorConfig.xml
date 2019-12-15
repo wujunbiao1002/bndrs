@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+    <!--数据库连接jar包-->
+    <classPathEntry
+            location="F:/WorkSpace/Frame/mysql-connector-java-5.1.47.jar"/>
+    <context id="context1">
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://192.168.141.132:8066/bndrs" userId="root"
+                        password="wujunbiao"/>
+        <!-- 生成模型的包名和位置-->
+        <javaModelGenerator targetPackage="com.bndrs.voice.example"
+                            targetProject="src/main/java"/>
+        <!-- 生成映射文件的包名和位置-->
+        <sqlMapGenerator targetPackage="mybatis"
+                         targetProject="src/main/resources/"/>
+        <!--&lt;!&ndash; 生成DAO的包名和位置&ndash;&gt;-->
+        <javaClientGenerator
+                targetPackage="com.bndrs.voice.dao"
+                targetProject="src/main/java"
+                type="XMLMAPPER"/>
+        <!-- 要生成哪些表 -->
+
+<!--        <table tableName="fastsoso_shareuser_url" domainObjectName="FastsosoShareuserUrlEntity"
+               enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"
+               enableSelectByExample="true" selectByExampleQueryId="true"></table>
+        <table tableName="fastsoso_url" domainObjectName="FastsosoUrlEntity" enableCountByExample="true"
+               enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true"
+               selectByExampleQueryId="true"></table>
+        <table tableName="netdisk_resource" domainObjectName="NetdiskResourceEntity" enableCountByExample="true"
+               enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true"
+               selectByExampleQueryId="true"></table>
+        <table tableName="proxys" domainObjectName="ProxysEntity" enableCountByExample="true"
+               enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true"
+               selectByExampleQueryId="true"></table>    -->
+        <table tableName="hot_keywords" domainObjectName="HotKeywordsEntity" enableCountByExample="true"
+               enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true"
+               selectByExampleQueryId="true"></table>
+    </context>
+</generatorConfiguration>
